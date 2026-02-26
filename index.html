@@ -1,822 +1,804 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.65">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-    span.s1 {font: 12.0px 'Apple Color Emoji'}
-    span.s2 {font: 12.0px 'Lucida Grande'}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI-WOD: El Entrenamiento Híbrido</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for Icons (No SVG Graphics) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hiwod: {
+                            dark: '#0B1120', // Deep dark blue/black
+                            card: '#1e293b', // Slate 800
+                            cyan: '#06b6d4', // Cyan 500
+                            glow: '#00f0ff', // Electric Cyan
+                            text: '#f8fafc', // Slate 50
+                            muted: '#94a3b8' // Slate 400
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['Oswald', 'Impact', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Chart Containers & Layout */
+        body {
+            background-color: #0B1120; /* Matching the dark aesthetic */
+            color: #f8fafc;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Neon Glow Effects for Typography */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        /* Timeline CSS Styles */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #06b6d4;
+            transform: translateX(-50%);
+        }
+
+        /* Venn Diagram CSS Implementation */
+        .venn-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            mix-blend-mode: screen; 
+        }
+
+        .venn-left {
+            background-color: rgba(6, 182, 212, 0.4); /* Cyan opacity */
+            border: 2px solid #06b6d4;
+            left: 50%;
+            transform: translateX(-80%);
+        }
+
+        .venn-right {
+            background-color: rgba(147, 51, 234, 0.4); /* Purple opacity for contrast */
+            border: 2px solid #9333ea;
+            right: 50%;
+            transform: translateX(80%);
+        }
+        
+        .venn-center-label {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-shadow: 0 0 8px black;
+        }
+
+        /* Selection Palette: "Brilliant Blues / Neon Cyberpunk" derived from images */
+        /* Palette Name: Cyber Strength */
+    </style>
+
+    <!-- 
+        Source Material Analysis:
+        - Topic: Hi-WOD (Hybrid Training: CrossFit + HYROX).
+        - Aesthetics: Dark Mode, Metallic, Neon Cyan.
+        - Narrative: Boredom -> Solution -> Methodology -> Data Proof -> Call to Action.
+        - Charts selected: Radar (Profile), Venn (Concept), Doughnut (Structure), Bar (Intensity).
+        - NO SVG used. NO Mermaid used.
+    -->
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="es"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;HI-WOD: El Entrenamiento Híbrido&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chart.js --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- FontAwesome for Icons (No SVG Graphics) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tailwind.config = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>theme: {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>extend: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>colors: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>hiwod: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>dark: '#0B1120', // Deep dark blue/black</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>card: '#1e293b', // Slate 800</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>cyan: '#06b6d4', // Cyan 500</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>glow: '#00f0ff', // Electric Cyan</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>text: '#f8fafc', // Slate 50</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>muted: '#94a3b8' // Slate 400</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>fontFamily: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>display: ['Oswald', 'Impact', 'sans-serif']</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Custom Styles for Chart Containers &amp; Layout */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #0B1120; /* Matching the dark aesthetic */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #f8fafc;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 600px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 350px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.chart-container {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Neon Glow Effects for Typography */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.neon-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.glass-panel {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(30, 41, 59, 0.7);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(6, 182, 212, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Timeline CSS Styles */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.timeline-line {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #06b6d4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Venn Diagram CSS Implementation */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.venn-circle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 200px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 200px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>mix-blend-mode: screen;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.venn-left {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: rgba(6, 182, 212, 0.4); /* Cyan opacity */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #06b6d4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-80%);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.venn-right {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: rgba(147, 51, 234, 0.4); /* Purple opacity for contrast */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #9333ea;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>right: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(80%);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.venn-center-label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 0 0 8px black;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Selection Palette: "Brilliant Blues / Neon Cyberpunk" derived from images */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Palette Name: Cyber Strength */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!--<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>Source Material Analysis:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>- Topic: Hi-WOD (Hybrid Training: CrossFit + HYROX).</p>
-<p class="p1"><span class="Apple-converted-space">        </span>- Aesthetics: Dark Mode, Metallic, Neon Cyan.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>- Narrative: Boredom -&gt; Solution -&gt; Methodology -&gt; Data Proof -&gt; Call to Action.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>- Charts selected: Radar (Profile), Venn (Concept), Doughnut (Structure), Bar (Intensity).</p>
-<p class="p1"><span class="Apple-converted-space">        </span>- NO SVG used. NO Mermaid used.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="antialiased selection:bg-hiwod-cyan selection:text-black"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- HERO SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="relative w-full py-20 px-6 text-center overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-hiwod-cyan via-hiwod-dark to-hiwod-dark"&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="relative z-10 max-w-4xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-hiwod-glow to-hiwod-cyan mb-4 neon-text" style="font-family: 'Oswald', sans-serif;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>HI-WOD</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xl md:text-2xl text-hiwod-cyan font-semibold tracking-widest uppercase mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Entrenamiento Híbrido &amp;bull; HYROX &amp;bull; CrossFit</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="inline-block p-1 rounded-full bg-gradient-to-r from-hiwod-cyan to-blue-600"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-hiwod-dark rounded-full px-8 py-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-white font-bold text-lg"&gt;DESAFÍA TU MEJOR VERSIÓN <span class="s1">🧬</span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- INTRO &amp; PROBLEM STATEMENT --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="glass-panel p-8 rounded-2xl shadow-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-hiwod-cyan pl-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>¿El Fin de la Rutina Tradicional?</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-hiwod-muted text-lg leading-relaxed mb-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Muchos atletas alcanzan un punto de estancamiento. O tienen mucha fuerza pero se asfixian al correr, o tienen un gran motor aeróbico pero carecen de potencia.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-hiwod-text text-lg leading-relaxed font-medium"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;strong class="text-hiwod-cyan"&gt;HI-WOD&lt;/strong&gt; nace para romper esa barrera. No elegimos entre levantar pesado o correr rápido. Hacemos ambas cosas. Es la evolución del fitness funcional.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- VENN DIAGRAM (CSS Implementation - NO SVG) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative h-64 w-full flex justify-center items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="venn-circle venn-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-white z-10 p-4"&gt;CROSSFIT&lt;br&gt;&lt;span class="text-sm font-light text-hiwod-cyan"&gt;Fuerza + Potencia&lt;/span&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="venn-circle venn-right"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-white z-10 p-4"&gt;HYROX&lt;br&gt;&lt;span class="text-sm font-light text-purple-300"&gt;Resistencia + Motor&lt;/span&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="venn-center-label"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-black text-white italic tracking-wider"&gt;HI-WOD&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- CHART SECTION 1: THE HYBRID ATHLETE PROFILE (RADAR) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-4xl font-bold text-white mb-4"&gt;El Atleta Híbrido&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-hiwod-muted max-w-2xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>A diferencia de la especialización, HI-WOD construye un perfil completo. Comparamos las capacidades atléticas desarrolladas bajo nuestra metodología frente a enfoques tradicionales.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Text Context --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col justify-center space-y-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-hiwod-card p-6 rounded-xl border border-gray-700"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;i class="fas fa-dumbbell text-hiwod-cyan text-2xl mr-3"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="text-xl font-bold text-white"&gt;Dominio de la Fuerza&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400"&gt;Mantenemos los estándares de fuerza del powerlifting y CrossFit, asegurando que la masa muscular no se sacrifique por la resistencia.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-hiwod-card p-6 rounded-xl border border-gray-700"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center mb-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;i class="fas fa-heart-pulse text-purple-500 text-2xl mr-3"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="text-xl font-bold text-white"&gt;Motor Aeróbico&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400"&gt;Incorporamos el volumen de carrera y remo de HYROX para crear una capacidad cardiovascular superior.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Chart Container --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="glass-panel p-4 rounded-xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="athleteRadarChart"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-center text-xs text-gray-500 mt-2"&gt;Comparativa de atributos físicos por disciplina&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- CHART SECTION 2: INTENSITY &amp; CALORIES (BAR) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="bg-hiwod-card rounded-3xl p-8 md:p-12 relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-hiwod-cyan rounded-full opacity-10 blur-3xl"&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-3xl font-bold text-white mb-8 text-center"&gt;Impacto Metabólico Comparativo&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-3 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="caloriesBarChart"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col justify-center space-y-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-300 text-lg"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Una sesión de Hi-WOD está diseñada para maximizar el &lt;span class="text-hiwod-cyan font-bold"&gt;EPOC (Consumo de Oxígeno Post-Ejercicio)&lt;/span&gt;.</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul class="space-y-4 text-gray-400"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-hiwod-cyan mr-2"&gt;<span class="s2">►</span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Combinación de alta intensidad con periodos de umbral aeróbico.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-hiwod-cyan mr-2"&gt;<span class="s2">►</span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Mayor gasto calórico por hora que el gimnasio tradicional o el running estable.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li class="flex items-start"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-hiwod-cyan mr-2"&gt;<span class="s2">►</span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;Estímulo constante al metabolismo.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- STRUCTURE SECTION: SESSION BREAKDOWN (DOUGHNUT) &amp; TIMELINE --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-4xl font-bold text-white mb-12 text-center"&gt;Anatomía de una Clase&lt;/h2&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Composition Chart --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl font-bold text-hiwod-cyan mb-4 text-center"&gt;Distribución del Tiempo&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container" style="height: 300px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="sessionDoughnutChart"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-6 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm text-gray-400"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>Cada minuto está programado. No hay tiempo muerto. La comunidad (30%) es el pegamento que mantiene la intensidad.</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- CSS Timeline (No SVG) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative pl-8 md:pl-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Vertical Line --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="absolute left-0 md:left-8 top-2 bottom-2 w-1 bg-gradient-to-b from-hiwod-cyan to-purple-600 rounded"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Item 1 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="relative pl-8 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-dark border-2 border-hiwod-cyan rounded-full"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-white font-bold text-lg"&gt;00:00 - Warm Up &amp; Movilidad&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 text-sm"&gt;Preparación articular y activación del core.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Item 2 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="relative pl-8 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-cyan rounded-full shadow-[0_0_10px_#06b6d4]"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-white font-bold text-lg"&gt;00:15 - Bloque de Fuerza (CrossFit)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 text-sm"&gt;Levantamientos olímpicos, Gimnásticos o Powerlifting. Enfocado en técnica y carga.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Item 3 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="relative pl-8 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-white font-bold text-lg"&gt;00:35 - El "WOD" Híbrido (HYROX Engine)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 text-sm"&gt;Alta intensidad. SkiErg, Running, Wall Balls mezclados con fatiga metabólica.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Item 4 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="relative pl-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-white rounded-full"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="text-white font-bold text-lg"&gt;00:55 - Cooldown &amp; Comunidad&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-400 text-sm"&gt;Vuelta a la calma y choque de manos. La parte favorita.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- SECCIÓN INTELIGENCIA ARTIFICIAL: GEMINI WOD GENERATOR --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="py-16 relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-4xl mx-auto glass-panel p-8 md:p-12 rounded-3xl border border-hiwod-glow/40 shadow-[0_0_40px_rgba(0,240,255,0.05)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs uppercase px-4 py-1 rounded-full mb-4 border border-hiwod-cyan/30"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;i class="fas fa-microchip mr-1"&gt;&lt;/i&gt; Gemini AI Engine</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-3xl font-black text-white uppercase italic"&gt;Prueba el Método: Diseña tu WOD <span class="s1">✨</span>&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 mt-2"&gt;Dinos qué tienes a mano y nuestra Inteligencia Artificial programará un estímulo híbrido letal en segundos.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="block text-sm font-medium text-gray-300 mb-2"&gt;Material Disponible&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select id="ai-material" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Sin material (Bodyweight y Carrera)"&gt;Solo mi cuerpo (Bodyweight)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Mancuernas y Kettlebells"&gt;Mancuernas / Kettlebells&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Box completo (Barra, Ski, Row, Trineo)"&gt;Box Completo&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="block text-sm font-medium text-gray-300 mb-2"&gt;Tiempo Límite&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select id="ai-time" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="15 minutos (Sprint Metabólico)"&gt;15 Minutos (Sprint)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="30 minutos (Intensidad Media)"&gt;30 Minutos (Intenso)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="45+ minutos (Full Engine / Hyrox Prep)"&gt;45+ Minutos (Full Engine)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="block text-sm font-medium text-gray-300 mb-2"&gt;Enfoque Principal&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select id="ai-focus" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Motor Aeróbico y Resistencia (Estilo Hyrox)"&gt;Motor Aeróbico (Hyrox)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Fuerza Explosiva y Potencia (Estilo CrossFit)"&gt;Fuerza Explosiva (CrossFit)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Híbrido Equilibrado (Mitad y Mitad)"&gt;Híbrido Equilibrado&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="generateWodBtn" onclick="generateWOD()" class="w-full bg-gradient-to-r from-hiwod-dark to-gray-800 border border-hiwod-cyan/50 hover:bg-hiwod-cyan hover:text-black text-hiwod-cyan font-bold py-4 rounded-xl transition-all duration-300 uppercase tracking-widest hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i class="fas fa-brain mr-2"&gt;&lt;/i&gt; Generar Estímulo <span class="s1">✨</span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Estado de Carga --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="ai-loading" class="hidden text-center mt-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i class="fas fa-spinner fa-spin text-hiwod-cyan text-4xl mb-4"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-400 font-medium animate-pulse"&gt;Analizando variables y programando WOD...&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Área de Resultados --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="ai-result" class="hidden mt-8 p-6 md:p-8 bg-hiwod-dark rounded-xl border border-hiwod-cyan/30 text-gray-300 shadow-inner"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- El contenido de Gemini se inyectará aquí --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- CTA SECTION (DISRUPTIVO &amp; ESCANEABLE) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="py-20 text-center relative"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Resplandor de fondo --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute inset-0 flex justify-center items-center pointer-events-none z-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full md:w-3/4 h-3/4 bg-hiwod-cyan opacity-10 blur-[100px] rounded-full"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-[#0f172a]/80 backdrop-blur-xl border border-hiwod-cyan/30 rounded-3xl p-8 md:p-14 shadow-[0_0_50px_rgba(6,182,212,0.15)] relative overflow-hidden max-w-5xl mx-auto"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Detalles UI Técnicos (Esquinas) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-hiwod-cyan opacity-50 rounded-tl-3xl"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-hiwod-cyan opacity-50 rounded-br-3xl"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="relative z-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Etiqueta de Autoridad --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs md:text-sm uppercase px-5 py-2 rounded-full mb-8 border border-hiwod-cyan/30"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Siguiente Nivel Desbloqueado</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight uppercase leading-tight" style="font-family: 'Oswald', sans-serif;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>No es motivación.&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-transparent bg-clip-text bg-gradient-to-r from-hiwod-cyan to-blue-500 neon-text"&gt;Es Método y Rendimiento.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/h2&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Cápsulas Escaneables (Data Points) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;i class="fas fa-stopwatch text-xl"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight"&gt;Prep Oficial&lt;br&gt;&lt;strong class="text-white text-lg"&gt;HYROX&lt;/strong&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-12 h-12 rounded-full bg-hiwod-dark border border-purple-500/50 flex items-center justify-center text-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.2)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;i class="fas fa-chart-line text-xl"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight"&gt;Progreso&lt;br&gt;&lt;strong class="text-white text-lg"&gt;Medible&lt;/strong&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;i class="fas fa-users text-xl"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight"&gt;Comunidad&lt;br&gt;&lt;strong class="text-white text-lg"&gt;Elite&lt;/strong&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Botón Magnético --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="openModal()" class="group relative inline-flex items-center justify-center px-8 md:px-14 py-5 font-black text-black bg-hiwod-cyan rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:bg-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.6)] w-full md:w-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-20"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="relative flex items-center gap-3 text-lg md:text-xl uppercase tracking-wide"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>SOLICITAR ACCESO AHORA &lt;i class="fas fa-bolt"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Micro-copy de Urgencia --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="mt-8 text-xs md:text-sm text-gray-400 font-bold tracking-widest uppercase flex justify-center items-center gap-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"&gt;&lt;/span&gt;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Atención Personalizada - Plazas Limitadas</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- MODAL DE INSCRIPCIÓN / SOLICITUD DE SERVICIOS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="inscriptionModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="glass-panel w-full max-w-lg mx-4 p-8 rounded-2xl shadow-2xl border border-hiwod-cyan/50 relative transform scale-100 transition-transform"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Botón Cerrar --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i class="fas fa-times text-2xl"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-3xl font-black text-white mb-2 uppercase italic"&gt;Únete a HI-WOD&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-hiwod-cyan mb-6"&gt;Completa tus datos para enviarte la propuesta a hiwod5.0@gmail.com&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Formulario modificado para intercepción por JavaScript --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;form id="inscriptionForm" class="space-y-4 text-left"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="block text-sm font-medium text-gray-300 mb-1"&gt;Nombre Completo&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" name="nombre" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="block text-sm font-medium text-gray-300 mb-1"&gt;Correo Electrónico&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="email" name="email" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="block text-sm font-medium text-gray-300 mb-1"&gt;Servicio&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select name="servicio" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value=""&gt;Selecciona...&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Entrenamiento Personalizado"&gt;Entrenamiento Personalizado&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Clases Grupales HI-WOD"&gt;Clases Grupales HI-WOD&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Programación Online"&gt;Programación Online&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label class="block text-sm font-medium text-gray-300 mb-1"&gt;Nivel Actual&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;select name="nivel" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value=""&gt;Selecciona...&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Principiante"&gt;Principiante&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Intermedio"&gt;Intermedio&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;option value="Avanzado / Competidor"&gt;Avanzado / Competidor&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="block text-sm font-medium text-gray-300 mb-1"&gt;Objetivos / Comentarios&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;textarea name="comentarios" rows="3" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"&gt;&lt;/textarea&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="submit" class="w-full bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-8 rounded-lg text-lg transition duration-300 mt-4 shadow-[0_0_15px_rgba(6,182,212,0.4)]"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>GENERAR SOLICITUD</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="bg-black text-center py-8 border-t border-gray-800"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-gray-500"&gt;© 2026 HI-WOD Training. Todos los derechos reservados.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- CHART.JS LOGIC --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Modal Logic ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function openModal() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inscriptionModal').classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.body.style.overflow = 'hidden'; // Prevenir scroll de fondo</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function closeModal() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inscriptionModal').classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.body.style.overflow = 'auto'; // Restaurar scroll</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Cerrar modal al hacer clic fuera de la tarjeta</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('inscriptionModal').addEventListener('click', function(e) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.target === this) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>closeModal();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Lógica de Envío de Correo (Mailto Dinámico) ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('inscriptionForm').addEventListener('submit', function(e) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault(); // Evita que la página se recargue</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 1. Recopilar datos del formulario</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const formData = new FormData(this);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const nombre = formData.get('nombre');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const email = formData.get('email');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const servicio = formData.get('servicio');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const nivel = formData.get('nivel');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const comentarios = formData.get('comentarios') || 'Ninguno';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 2. Construir el correo</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const correoDestino = 'hiwod5.0@gmail.com';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const asunto = encodeURIComponent(`<span class="s1">🚀</span> Solicitud HI-WOD: ${servicio} - ${nombre}`);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const cuerpo = encodeURIComponent(</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`Hola equipo de HI-WOD,\n\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`Me gustaría solicitar información sobre sus servicios. Mis datos son:\n\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`<span class="s1">👤</span> Nombre: ${nombre}\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`<span class="s1">📧</span> Email: ${email}\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`<span class="s1">🎯</span> Servicio: ${servicio}\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`<span class="s1">📊</span> Nivel Actual: ${nivel}\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`<span class="s1">💬</span> Comentarios / Objetivos: ${comentarios}\n\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`Quedo a la espera de su respuesta.\n` +</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`Un saludo.`</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 3. Abrir el cliente de correo del usuario y cerrar el modal</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.location.href = `mailto:${correoDestino}?subject=${asunto}&amp;body=${cuerpo}`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>closeModal();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>this.reset(); // Limpiar el formulario para el futuro</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- 1. Label Wrapping Helper Function (16 char limit) ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function wrapLabel(str) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (str.length &lt;= 16) return str;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const words = str.split(' ');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const lines = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let currentLine = words[0];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 1; i &lt; words.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (currentLine.length + 1 + words[i].length &lt;= 16) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>currentLine += ' ' + words[i];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>lines.push(currentLine);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>currentLine = words[i];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>lines.push(currentLine);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return lines;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- 2. Shared Tooltip Configuration ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const commonTooltipOptions = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backgroundColor: 'rgba(15, 23, 42, 0.9)', // Dark Slate</p>
-<p class="p1"><span class="Apple-converted-space">            </span>titleColor: '#06b6d4', // Cyan</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bodyColor: '#fff',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>borderColor: '#334155',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>borderWidth: 1,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>callbacks: {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>title: function(tooltipItems) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const item = tooltipItems[0];</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>let label = item.chart.data.labels[item.dataIndex];</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (Array.isArray(label)) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>return label.join(' ');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>return label;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- 3. Chart Initialization ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Radar Chart: Athlete Profile ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ctxRadar = document.getElementById('athleteRadarChart').getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const labelsRadar = ['Fuerza Explosiva', 'Resistencia Cardiovascular', 'Agilidad Mental', 'Flexibilidad', 'Potencia Máxima'];</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>new Chart(ctxRadar, {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>type: 'radar',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>labels: labelsRadar.map(l =&gt; wrapLabel(l)), // Apply wrapping</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Atleta HI-WOD',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>data: [90, 85, 95, 70, 88],</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'rgba(6, 182, 212, 0.4)', // Cyan transparent</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: '#06b6d4',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>pointBackgroundColor: '#fff',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>pointBorderColor: '#06b6d4',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>borderWidth: 2</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Gimnasio Tradicional',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>data: [75, 40, 50, 40, 65],</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate transparent</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: '#94a3b8',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>pointBackgroundColor: '#94a3b8',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>borderWidth: 1,</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>borderDash: [5, 5]</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>scales: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>r: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>angleLines: { color: 'rgba(255, 255, 255, 0.1)' },</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>grid: { color: 'rgba(255, 255, 255, 0.1)' },</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>pointLabels: {</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>color: '#e2e8f0',</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>font: { size: 11, family: 'Inter' }</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>ticks: { display: false, backdropColor: 'transparent' }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>legend: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>labels: { color: '#fff' }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: commonTooltipOptions</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Bar Chart: Caloric Burn ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ctxBar = document.getElementById('caloriesBarChart').getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const labelsBar = ['Gym Tradicional', 'Running (10km/h)', 'Clase HI-WOD'];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>new Chart(ctxBar, {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>type: 'bar',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>labels: labelsBar.map(l =&gt; wrapLabel(l)),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [{</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>label: 'Calorías quemadas (aprox/hora)',</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data: [300, 550, 850],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>backgroundColor: [</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'rgba(148, 163, 184, 0.5)', // Slate</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'rgba(147, 51, 234, 0.5)', // Purple</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'rgba(6, 182, 212, 0.9)' <span class="Apple-converted-space">  </span>// Cyan (Winner)</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>borderColor: [</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#94a3b8',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#9333ea',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#06b6d4'</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>borderWidth: 1</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>indexAxis: 'y', // Horizontal Bar for readability</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>scales: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>x: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>grid: { color: 'rgba(255, 255, 255, 0.1)' },</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>ticks: { color: '#94a3b8' }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>y: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>grid: { display: false },</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>ticks: { color: '#fff', font: { weight: 'bold' } }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>legend: { display: false },</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: commonTooltipOptions</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// --- Doughnut Chart: Session Structure ---</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ctxDoughnut = document.getElementById('sessionDoughnutChart').getContext('2d');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const labelsDoughnut = ['Warm Up', 'Bloque Fuerza', 'Bloque Híbrido', 'Comunidad/Cool'];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>new Chart(ctxDoughnut, {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>type: 'doughnut',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>labels: labelsDoughnut.map(l =&gt; wrapLabel(l)),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>datasets: [{</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>data: [15, 30, 40, 15], // Percentages roughly</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>backgroundColor: [</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#334155', // Dark Slate</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#06b6d4', // Cyan</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#9333ea', // Purple</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>'#f8fafc'<span class="Apple-converted-space">  </span>// White</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>],</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>borderWidth: 0,</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>hoverOffset: 10</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}]</p>
-<p class="p1"><span class="Apple-converted-space">                </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                </span>options: {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>responsive: true,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>cutout: '70%',</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>plugins: {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>legend: {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>position: 'bottom',</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>labels: { color: '#fff', padding: 20 }</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>tooltip: commonTooltipOptions</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- 4. Integración Gemini API (Generador de WOD) ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const apiKey = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function fetchWithRetry(url, options, retries = 5) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const delays = [1000, 2000, 4000, 8000, 16000];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; retries; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const response = await fetch(url, options);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return await response.json();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (e) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (i === retries - 1) throw e;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await new Promise(res =&gt; setTimeout(res, delays[i]));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function generateWOD() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const material = document.getElementById('ai-material').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const time = document.getElementById('ai-time').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const focus = document.getElementById('ai-focus').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const resultDiv = document.getElementById('ai-result');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const loadingDiv = document.getElementById('ai-loading');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.getElementById('generateWodBtn');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Actualizar UI</p>
-<p class="p1"><span class="Apple-converted-space">            </span>btn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>btn.classList.add('opacity-50', 'cursor-not-allowed');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>loadingDiv.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>resultDiv.classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>resultDiv.innerHTML = '';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const prompt = `Actúa como un coach experto de élite en entrenamiento híbrido (metodología HI-WOD: CrossFit + Hyrox).<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Genera un WOD (Workout of the Day) único, estructurado y de alta intensidad basado en estos parámetros exactos:</p>
-<p class="p1"><span class="Apple-converted-space">            </span>- Material disponible: ${material}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>- Tiempo límite: ${time}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>- Enfoque principal: ${focus}</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Estructura la respuesta obligatoriamente con las siguientes secciones:</p>
-<p class="p1"><span class="Apple-converted-space">            </span>1. Un título creativo y agresivo para el WOD.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>2. Breve Calentamiento (Warm Up) enfocado en la movilidad necesaria.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>3. La parte principal del entrenamiento (bloques de fuerza/motor según corresponda).</p>
-<p class="p1"><span class="Apple-converted-space">            </span>4. Un consejo técnico y el RPE (Rate of Perceived Exertion) recomendado del 1 al 10.</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>Usa un tono directo, técnico, sin humo motivacional y muy profesional.<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>IMPORTANTE: Devuelve el resultado formateado en HTML limpio usando etiquetas como &lt;h3 class="text-xl font-bold text-white mb-2"&gt;, &lt;h4 class="text-lg font-semibold text-hiwod-cyan mt-4 mb-2"&gt;, &lt;ul class="list-disc pl-5 space-y-1 mb-4"&gt;, &lt;li&gt;, &lt;p class="mb-2"&gt;, &lt;strong&gt;.<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>NO utilices bloques de código markdown (\`\`\`).`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>method: 'POST',</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>headers: { 'Content-Type': 'application/json' },</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>body: JSON.stringify({</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>contents: [{ parts: [{ text: prompt }] }]</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>})</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const text = response.candidates?.[0]?.content?.parts?.[0]?.text;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(text) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>// Limpieza de markdown residual por si el modelo lo incluye</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const cleanText = text.replace(/```html/g, '').replace(/```/g, '');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML = cleanText;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML = "&lt;p class='text-red-400'&gt;No se pudo generar el entrenamiento. Inténtalo de nuevo.&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>resultDiv.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-2"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-red-400 font-bold"&gt;Error de conexión con el motor IA.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm text-gray-500 mt-2"&gt;Por favor, verifica la configuración de tu API Key o tu conexión a internet.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} finally {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>loadingDiv.classList.add('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>resultDiv.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>btn.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>btn.classList.remove('opacity-50', 'cursor-not-allowed');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="antialiased selection:bg-hiwod-cyan selection:text-black">
+
+    <!-- HERO SECTION -->
+    <header class="relative w-full py-20 px-6 text-center overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-hiwod-cyan via-hiwod-dark to-hiwod-dark"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-hiwod-glow to-hiwod-cyan mb-4 neon-text" style="font-family: 'Oswald', sans-serif;">
+                HI-WOD
+            </h1>
+            <p class="text-xl md:text-2xl text-hiwod-cyan font-semibold tracking-widest uppercase mb-8">
+                Entrenamiento Híbrido &bull; HYROX &bull; CrossFit
+            </p>
+            <div class="inline-block p-1 rounded-full bg-gradient-to-r from-hiwod-cyan to-blue-600">
+                <div class="bg-hiwod-dark rounded-full px-8 py-3">
+                    <span class="text-white font-bold text-lg">DESAFÍA TU MEJOR VERSIÓN 🧬</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTRO & PROBLEM STATEMENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="glass-panel p-8 rounded-2xl shadow-2xl">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-hiwod-cyan pl-4">
+                    ¿El Fin de la Rutina Tradicional?
+                </h2>
+                <p class="text-hiwod-muted text-lg leading-relaxed mb-6">
+                    Muchos atletas alcanzan un punto de estancamiento. O tienen mucha fuerza pero se asfixian al correr, o tienen un gran motor aeróbico pero carecen de potencia.
+                </p>
+                <p class="text-hiwod-text text-lg leading-relaxed font-medium">
+                    <strong class="text-hiwod-cyan">HI-WOD</strong> nace para romper esa barrera. No elegimos entre levantar pesado o correr rápido. Hacemos ambas cosas. Es la evolución del fitness funcional.
+                </p>
+            </div>
+            
+            <!-- VENN DIAGRAM (CSS Implementation - NO SVG) -->
+            <div class="relative h-64 w-full flex justify-center items-center">
+                <div class="venn-circle venn-left">
+                    <span class="text-white z-10 p-4">CROSSFIT<br><span class="text-sm font-light text-hiwod-cyan">Fuerza + Potencia</span></span>
+                </div>
+                <div class="venn-circle venn-right">
+                    <span class="text-white z-10 p-4">HYROX<br><span class="text-sm font-light text-purple-300">Resistencia + Motor</span></span>
+                </div>
+                <div class="venn-center-label">
+                    <h3 class="text-2xl font-black text-white italic tracking-wider">HI-WOD</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHART SECTION 1: THE HYBRID ATHLETE PROFILE (RADAR) -->
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">El Atleta Híbrido</h2>
+                <p class="text-hiwod-muted max-w-2xl mx-auto">
+                    A diferencia de la especialización, HI-WOD construye un perfil completo. Comparamos las capacidades atléticas desarrolladas bajo nuestra metodología frente a enfoques tradicionales.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Text Context -->
+                <div class="flex flex-col justify-center space-y-6">
+                    <div class="bg-hiwod-card p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-dumbbell text-hiwod-cyan text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Dominio de la Fuerza</h3>
+                        </div>
+                        <p class="text-gray-400">Mantenemos los estándares de fuerza del powerlifting y CrossFit, asegurando que la masa muscular no se sacrifique por la resistencia.</p>
+                    </div>
+                    <div class="bg-hiwod-card p-6 rounded-xl border border-gray-700">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-heart-pulse text-purple-500 text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Motor Aeróbico</h3>
+                        </div>
+                        <p class="text-gray-400">Incorporamos el volumen de carrera y remo de HYROX para crear una capacidad cardiovascular superior.</p>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="glass-panel p-4 rounded-xl">
+                    <div class="chart-container">
+                        <canvas id="athleteRadarChart"></canvas>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-2">Comparativa de atributos físicos por disciplina</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHART SECTION 2: INTENSITY & CALORIES (BAR) -->
+        <section class="bg-hiwod-card rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-hiwod-cyan rounded-full opacity-10 blur-3xl"></div>
+            
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Impacto Metabólico Comparativo</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="caloriesBarChart"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center space-y-6">
+                    <p class="text-gray-300 text-lg">
+                        Una sesión de Hi-WOD está diseñada para maximizar el <span class="text-hiwod-cyan font-bold">EPOC (Consumo de Oxígeno Post-Ejercicio)</span>.
+                    </p>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start">
+                            <span class="text-hiwod-cyan mr-2">►</span>
+                            <span>Combinación de alta intensidad con periodos de umbral aeróbico.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-hiwod-cyan mr-2">►</span>
+                            <span>Mayor gasto calórico por hora que el gimnasio tradicional o el running estable.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-hiwod-cyan mr-2">►</span>
+                            <span>Estímulo constante al metabolismo.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRUCTURE SECTION: SESSION BREAKDOWN (DOUGHNUT) & TIMELINE -->
+        <section>
+            <h2 class="text-4xl font-bold text-white mb-12 text-center">Anatomía de una Clase</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <!-- Composition Chart -->
+                <div>
+                    <h3 class="text-xl font-bold text-hiwod-cyan mb-4 text-center">Distribución del Tiempo</h3>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="sessionDoughnutChart"></canvas>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-400">
+                            Cada minuto está programado. No hay tiempo muerto. La comunidad (30%) es el pegamento que mantiene la intensidad.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CSS Timeline (No SVG) -->
+                <div class="relative pl-8 md:pl-0">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-0 md:left-8 top-2 bottom-2 w-1 bg-gradient-to-b from-hiwod-cyan to-purple-600 rounded"></div>
+
+                    <!-- Item 1 -->
+                    <div class="relative pl-8 mb-8">
+                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-dark border-2 border-hiwod-cyan rounded-full"></div>
+                        <h4 class="text-white font-bold text-lg">00:00 - Warm Up & Movilidad</h4>
+                        <p class="text-gray-400 text-sm">Preparación articular y activación del core.</p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative pl-8 mb-8">
+                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-cyan rounded-full shadow-[0_0_10px_#06b6d4]"></div>
+                        <h4 class="text-white font-bold text-lg">00:15 - Bloque de Fuerza (CrossFit)</h4>
+                        <p class="text-gray-400 text-sm">Levantamientos olímpicos, Gimnásticos o Powerlifting. Enfocado en técnica y carga.</p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative pl-8 mb-8">
+                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]"></div>
+                        <h4 class="text-white font-bold text-lg">00:35 - El "WOD" Híbrido (HYROX Engine)</h4>
+                        <p class="text-gray-400 text-sm">Alta intensidad. SkiErg, Running, Wall Balls mezclados con fatiga metabólica.</p>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="relative pl-8">
+                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-white rounded-full"></div>
+                        <h4 class="text-white font-bold text-lg">00:55 - Cooldown & Comunidad</h4>
+                        <p class="text-gray-400 text-sm">Vuelta a la calma y choque de manos. La parte favorita.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN INTELIGENCIA ARTIFICIAL: GEMINI WOD GENERATOR -->
+        <section class="py-16 relative z-10">
+            <div class="max-w-4xl mx-auto glass-panel p-8 md:p-12 rounded-3xl border border-hiwod-glow/40 shadow-[0_0_40px_rgba(0,240,255,0.05)]">
+                <div class="text-center mb-8">
+                    <span class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs uppercase px-4 py-1 rounded-full mb-4 border border-hiwod-cyan/30">
+                        <i class="fas fa-microchip mr-1"></i> Gemini AI Engine
+                    </span>
+                    <h3 class="text-3xl font-black text-white uppercase italic">Prueba el Método: Diseña tu WOD ✨</h3>
+                    <p class="text-gray-400 mt-2">Dinos qué tienes a mano y nuestra Inteligencia Artificial programará un estímulo híbrido letal en segundos.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Material Disponible</label>
+                        <select id="ai-material" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none">
+                            <option value="Sin material (Bodyweight y Carrera)">Solo mi cuerpo (Bodyweight)</option>
+                            <option value="Mancuernas y Kettlebells">Mancuernas / Kettlebells</option>
+                            <option value="Box completo (Barra, Ski, Row, Trineo)">Box Completo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Tiempo Límite</label>
+                        <select id="ai-time" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none">
+                            <option value="15 minutos (Sprint Metabólico)">15 Minutos (Sprint)</option>
+                            <option value="30 minutos (Intensidad Media)">30 Minutos (Intenso)</option>
+                            <option value="45+ minutos (Full Engine / Hyrox Prep)">45+ Minutos (Full Engine)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Enfoque Principal</label>
+                        <select id="ai-focus" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan transition appearance-none">
+                            <option value="Motor Aeróbico y Resistencia (Estilo Hyrox)">Motor Aeróbico (Hyrox)</option>
+                            <option value="Fuerza Explosiva y Potencia (Estilo CrossFit)">Fuerza Explosiva (CrossFit)</option>
+                            <option value="Híbrido Equilibrado (Mitad y Mitad)">Híbrido Equilibrado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="generateWodBtn" onclick="generateWOD()" class="w-full bg-gradient-to-r from-hiwod-dark to-gray-800 border border-hiwod-cyan/50 hover:bg-hiwod-cyan hover:text-black text-hiwod-cyan font-bold py-4 rounded-xl transition-all duration-300 uppercase tracking-widest hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                    <i class="fas fa-brain mr-2"></i> Generar Estímulo ✨
+                </button>
+
+                <!-- Estado de Carga -->
+                <div id="ai-loading" class="hidden text-center mt-10">
+                    <i class="fas fa-spinner fa-spin text-hiwod-cyan text-4xl mb-4"></i>
+                    <p class="text-gray-400 font-medium animate-pulse">Analizando variables y programando WOD...</p>
+                </div>
+
+                <!-- Área de Resultados -->
+                <div id="ai-result" class="hidden mt-8 p-6 md:p-8 bg-hiwod-dark rounded-xl border border-hiwod-cyan/30 text-gray-300 shadow-inner">
+                    <!-- El contenido de Gemini se inyectará aquí -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION (DISRUPTIVO & ESCANEABLE) -->
+        <section class="py-20 text-center relative">
+            <!-- Resplandor de fondo -->
+            <div class="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+                <div class="w-full md:w-3/4 h-3/4 bg-hiwod-cyan opacity-10 blur-[100px] rounded-full"></div>
+            </div>
+
+            <div class="bg-[#0f172a]/80 backdrop-blur-xl border border-hiwod-cyan/30 rounded-3xl p-8 md:p-14 shadow-[0_0_50px_rgba(6,182,212,0.15)] relative overflow-hidden max-w-5xl mx-auto">
+                
+                <!-- Detalles UI Técnicos (Esquinas) -->
+                <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-hiwod-cyan opacity-50 rounded-tl-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-hiwod-cyan opacity-50 rounded-br-3xl"></div>
+
+                <div class="relative z-10">
+                    <!-- Etiqueta de Autoridad -->
+                    <div class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs md:text-sm uppercase px-5 py-2 rounded-full mb-8 border border-hiwod-cyan/30">
+                        Siguiente Nivel Desbloqueado
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight uppercase leading-tight" style="font-family: 'Oswald', sans-serif;">
+                        No es motivación.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-hiwod-cyan to-blue-500 neon-text">Es Método y Rendimiento.</span>
+                    </h2>
+                    
+                    <!-- Cápsulas Escaneables (Data Points) -->
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 mb-12">
+                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
+                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                                <i class="fas fa-stopwatch text-xl"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Prep Oficial<br><strong class="text-white text-lg">HYROX</strong></span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
+                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-purple-500/50 flex items-center justify-center text-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+                                <i class="fas fa-chart-line text-xl"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Progreso<br><strong class="text-white text-lg">Medible</strong></span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
+                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Comunidad<br><strong class="text-white text-lg">Elite</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón Magnético -->
+                    <button onclick="openModal()" class="group relative inline-flex items-center justify-center px-8 md:px-14 py-5 font-black text-black bg-hiwod-cyan rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:bg-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.6)] w-full md:w-auto">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-20"></span>
+                        <span class="relative flex items-center gap-3 text-lg md:text-xl uppercase tracking-wide">
+                            SOLICITAR ACCESO AHORA <i class="fas fa-bolt"></i>
+                        </span>
+                    </button>
+                    
+                    <!-- Micro-copy de Urgencia -->
+                    <p class="mt-8 text-xs md:text-sm text-gray-400 font-bold tracking-widest uppercase flex justify-center items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> 
+                        Atención Personalizada - Plazas Limitadas
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE INSCRIPCIÓN / SOLICITUD DE SERVICIOS -->
+    <div id="inscriptionModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity">
+        <div class="glass-panel w-full max-w-lg mx-4 p-8 rounded-2xl shadow-2xl border border-hiwod-cyan/50 relative transform scale-100 transition-transform">
+            <!-- Botón Cerrar -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            
+            <h3 class="text-3xl font-black text-white mb-2 uppercase italic">Únete a HI-WOD</h3>
+            <p class="text-hiwod-cyan mb-6">Completa tus datos para enviarte la propuesta a hiwod5.0@gmail.com</p>
+
+            <!-- Formulario modificado para intercepción por JavaScript -->
+            <form id="inscriptionForm" class="space-y-4 text-left">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Nombre Completo</label>
+                    <input type="text" name="nombre" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Correo Electrónico</label>
+                    <input type="email" name="email" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Servicio</label>
+                        <select name="servicio" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none">
+                            <option value="">Selecciona...</option>
+                            <option value="Entrenamiento Personalizado">Entrenamiento Personalizado</option>
+                            <option value="Clases Grupales HI-WOD">Clases Grupales HI-WOD</option>
+                            <option value="Programación Online">Programación Online</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1">Nivel Actual</label>
+                        <select name="nivel" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none">
+                            <option value="">Selecciona...</option>
+                            <option value="Principiante">Principiante</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado / Competidor">Avanzado / Competidor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Objetivos / Comentarios</label>
+                    <textarea name="comentarios" rows="3" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-8 rounded-lg text-lg transition duration-300 mt-4 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                    GENERAR SOLICITUD
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-black text-center py-8 border-t border-gray-800">
+        <p class="text-gray-500">© 2026 HI-WOD Training. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- CHART.JS LOGIC -->
+    <script>
+        // --- Modal Logic ---
+        function openModal() {
+            document.getElementById('inscriptionModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll de fondo
+        }
+
+        function closeModal() {
+            document.getElementById('inscriptionModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+
+        // Cerrar modal al hacer clic fuera de la tarjeta
+        document.getElementById('inscriptionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // --- Lógica de Envío de Correo (Mailto Dinámico) ---
+        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+
+            // 1. Recopilar datos del formulario
+            const formData = new FormData(this);
+            const nombre = formData.get('nombre');
+            const email = formData.get('email');
+            const servicio = formData.get('servicio');
+            const nivel = formData.get('nivel');
+            const comentarios = formData.get('comentarios') || 'Ninguno';
+
+            // 2. Construir el correo
+            const correoDestino = 'hiwod5.0@gmail.com';
+            const asunto = encodeURIComponent(`🚀 Solicitud HI-WOD: ${servicio} - ${nombre}`);
+            const cuerpo = encodeURIComponent(
+                `Hola equipo de HI-WOD,\n\n` +
+                `Me gustaría solicitar información sobre sus servicios. Mis datos son:\n\n` +
+                `👤 Nombre: ${nombre}\n` +
+                `📧 Email: ${email}\n` +
+                `🎯 Servicio: ${servicio}\n` +
+                `📊 Nivel Actual: ${nivel}\n` +
+                `💬 Comentarios / Objetivos: ${comentarios}\n\n` +
+                `Quedo a la espera de su respuesta.\n` +
+                `Un saludo.`
+            );
+
+            // 3. Abrir el cliente de correo del usuario y cerrar el modal
+            window.location.href = `mailto:${correoDestino}?subject=${asunto}&body=${cuerpo}`;
+            closeModal();
+            this.reset(); // Limpiar el formulario para el futuro
+        });
+
+        // --- 1. Label Wrapping Helper Function (16 char limit) ---
+        function wrapLabel(str) {
+            if (str.length <= 16) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- 2. Shared Tooltip Configuration ---
+        const commonTooltipOptions = {
+            backgroundColor: 'rgba(15, 23, 42, 0.9)', // Dark Slate
+            titleColor: '#06b6d4', // Cyan
+            bodyColor: '#fff',
+            borderColor: '#334155',
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- 3. Chart Initialization ---
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Radar Chart: Athlete Profile ---
+            const ctxRadar = document.getElementById('athleteRadarChart').getContext('2d');
+            const labelsRadar = ['Fuerza Explosiva', 'Resistencia Cardiovascular', 'Agilidad Mental', 'Flexibilidad', 'Potencia Máxima'];
+            
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: labelsRadar.map(l => wrapLabel(l)), // Apply wrapping
+                    datasets: [
+                        {
+                            label: 'Atleta HI-WOD',
+                            data: [90, 85, 95, 70, 88],
+                            backgroundColor: 'rgba(6, 182, 212, 0.4)', // Cyan transparent
+                            borderColor: '#06b6d4',
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#06b6d4',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Gimnasio Tradicional',
+                            data: [75, 40, 50, 40, 65],
+                            backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate transparent
+                            borderColor: '#94a3b8',
+                            pointBackgroundColor: '#94a3b8',
+                            borderWidth: 1,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: {
+                                color: '#e2e8f0',
+                                font: { size: 11, family: 'Inter' }
+                            },
+                            ticks: { display: false, backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#fff' }
+                        },
+                        tooltip: commonTooltipOptions
+                    }
+                }
+            });
+
+            // --- Bar Chart: Caloric Burn ---
+            const ctxBar = document.getElementById('caloriesBarChart').getContext('2d');
+            const labelsBar = ['Gym Tradicional', 'Running (10km/h)', 'Clase HI-WOD'];
+
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labelsBar.map(l => wrapLabel(l)),
+                    datasets: [{
+                        label: 'Calorías quemadas (aprox/hora)',
+                        data: [300, 550, 850],
+                        backgroundColor: [
+                            'rgba(148, 163, 184, 0.5)', // Slate
+                            'rgba(147, 51, 234, 0.5)', // Purple
+                            'rgba(6, 182, 212, 0.9)'   // Cyan (Winner)
+                        ],
+                        borderColor: [
+                            '#94a3b8',
+                            '#9333ea',
+                            '#06b6d4'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal Bar for readability
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#fff', font: { weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: commonTooltipOptions
+                    }
+                }
+            });
+
+            // --- Doughnut Chart: Session Structure ---
+            const ctxDoughnut = document.getElementById('sessionDoughnutChart').getContext('2d');
+            const labelsDoughnut = ['Warm Up', 'Bloque Fuerza', 'Bloque Híbrido', 'Comunidad/Cool'];
+
+            new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: labelsDoughnut.map(l => wrapLabel(l)),
+                    datasets: [{
+                        data: [15, 30, 40, 15], // Percentages roughly
+                        backgroundColor: [
+                            '#334155', // Dark Slate
+                            '#06b6d4', // Cyan
+                            '#9333ea', // Purple
+                            '#f8fafc'  // White
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#fff', padding: 20 }
+                        },
+                        tooltip: commonTooltipOptions
+                    }
+                }
+            });
+
+        });
+
+        // --- 4. Integración Gemini API (Generador de WOD) ---
+        const apiKey = "";
+
+        async function fetchWithRetry(url, options, retries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                    await new Promise(res => setTimeout(res, delays[i]));
+                }
+            }
+        }
+
+        async function generateWOD() {
+            const material = document.getElementById('ai-material').value;
+            const time = document.getElementById('ai-time').value;
+            const focus = document.getElementById('ai-focus').value;
+            const resultDiv = document.getElementById('ai-result');
+            const loadingDiv = document.getElementById('ai-loading');
+            const btn = document.getElementById('generateWodBtn');
+
+            // Actualizar UI
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            loadingDiv.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+            resultDiv.innerHTML = '';
+
+            const prompt = `Actúa como un coach experto de élite en entrenamiento híbrido (metodología HI-WOD: CrossFit + Hyrox). 
+            Genera un WOD (Workout of the Day) único, estructurado y de alta intensidad basado en estos parámetros exactos:
+            - Material disponible: ${material}
+            - Tiempo límite: ${time}
+            - Enfoque principal: ${focus}
+            
+            Estructura la respuesta obligatoriamente con las siguientes secciones:
+            1. Un título creativo y agresivo para el WOD.
+            2. Breve Calentamiento (Warm Up) enfocado en la movilidad necesaria.
+            3. La parte principal del entrenamiento (bloques de fuerza/motor según corresponda).
+            4. Un consejo técnico y el RPE (Rate of Perceived Exertion) recomendado del 1 al 10.
+            
+            Usa un tono directo, técnico, sin humo motivacional y muy profesional. 
+            IMPORTANTE: Devuelve el resultado formateado en HTML limpio usando etiquetas como <h3 class="text-xl font-bold text-white mb-2">, <h4 class="text-lg font-semibold text-hiwod-cyan mt-4 mb-2">, <ul class="list-disc pl-5 space-y-1 mb-4">, <li>, <p class="mb-2">, <strong>. 
+            NO utilices bloques de código markdown (\`\`\`).`;
+
+            try {
+                const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const text = response.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if(text) {
+                    // Limpieza de markdown residual por si el modelo lo incluye
+                    const cleanText = text.replace(/```html/g, '').replace(/```/g, '');
+                    resultDiv.innerHTML = cleanText;
+                } else {
+                    resultDiv.innerHTML = "<p class='text-red-400'>No se pudo generar el entrenamiento. Inténtalo de nuevo.</p>";
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-2"></i>
+                        <p class="text-red-400 font-bold">Error de conexión con el motor IA.</p>
+                        <p class="text-sm text-gray-500 mt-2">Por favor, verifica la configuración de tu API Key o tu conexión a internet.</p>
+                    </div>`;
+            } finally {
+                loadingDiv.classList.add('hidden');
+                resultDiv.classList.remove('hidden');
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+    </script>
 </body>
 </html>
