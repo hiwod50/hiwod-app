@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome for Icons (No SVG Graphics) -->
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -17,12 +17,12 @@
                 extend: {
                     colors: {
                         hiwod: {
-                            dark: '#0B1120', // Deep dark blue/black
-                            card: '#1e293b', // Slate 800
-                            cyan: '#06b6d4', // Cyan 500
-                            glow: '#00f0ff', // Electric Cyan
-                            text: '#f8fafc', // Slate 50
-                            muted: '#94a3b8' // Slate 400
+                            dark: '#0B1120',
+                            card: '#1e293b',
+                            cyan: '#06b6d4',
+                            glow: '#00f0ff',
+                            text: '#f8fafc',
+                            muted: '#94a3b8'
                         }
                     },
                     fontFamily: {
@@ -35,95 +35,22 @@
     </script>
 
     <style>
-        /* Custom Styles for Chart Containers & Layout */
-        body {
-            background-color: #0B1120; /* Matching the dark aesthetic */
-            color: #f8fafc;
-        }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
-        }
-
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-
-        /* Neon Glow Effects for Typography */
-        .neon-text {
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
-        }
-
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-        }
-
-        /* Timeline CSS Styles */
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #06b6d4;
-            transform: translateX(-50%);
-        }
-
-        /* Venn Diagram CSS Implementation */
-        .venn-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            mix-blend-mode: screen; 
-        }
-
-        .venn-left {
-            background-color: rgba(6, 182, 212, 0.4); /* Cyan opacity */
-            border: 2px solid #06b6d4;
-            left: 50%;
-            transform: translateX(-80%);
-        }
-
-        .venn-right {
-            background-color: rgba(147, 51, 234, 0.4); /* Purple opacity for contrast */
-            border: 2px solid #9333ea;
-            right: 50%;
-            transform: translateX(80%);
-        }
-        
-        .venn-center-label {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            text-shadow: 0 0 8px black;
-        }
+        body { background-color: #0B1120; color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .neon-text { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(6, 182, 212, 0.2); }
+        .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background-color: #06b6d4; transform: translateX(-50%); }
+        .venn-circle { width: 200px; height: 200px; border-radius: 50%; position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: bold; transition: all 0.3s ease; mix-blend-mode: screen; }
+        .venn-left { background-color: rgba(6, 182, 212, 0.4); border: 2px solid #06b6d4; left: 50%; transform: translateX(-80%); }
+        .venn-right { background-color: rgba(147, 51, 234, 0.4); border: 2px solid #9333ea; right: 50%; transform: translateX(80%); }
+        .venn-center-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 10; text-shadow: 0 0 8px black; }
     </style>
 </head>
 <body class="antialiased selection:bg-hiwod-cyan selection:text-black">
 
-    <!-- HERO SECTION -->
     <header class="relative w-full py-20 px-6 text-center overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-hiwod-cyan via-hiwod-dark to-hiwod-dark"></div>
-        
         <div class="relative z-10 max-w-4xl mx-auto">
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-hiwod-glow to-hiwod-cyan mb-4 neon-text" style="font-family: 'Oswald', sans-serif;">
                 HI-WOD
@@ -139,159 +66,18 @@
         </div>
     </header>
 
-    <!-- INTRO & PROBLEM STATEMENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
-
+        <!-- VENN DIAGRAM Y PROBLEMA -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="glass-panel p-8 rounded-2xl shadow-2xl">
-                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-hiwod-cyan pl-4">
-                    ¿El Fin de la Rutina Tradicional?
-                </h2>
-                <p class="text-hiwod-muted text-lg leading-relaxed mb-6">
-                    Muchos atletas alcanzan un punto de estancamiento. O tienen mucha fuerza pero se asfixian al correr, o tienen un gran motor aeróbico pero carecen de potencia.
-                </p>
-                <p class="text-hiwod-text text-lg leading-relaxed font-medium">
-                    <strong class="text-hiwod-cyan">HI-WOD</strong> nace para romper esa barrera. No elegimos entre levantar pesado o correr rápido. Hacemos ambas cosas. Es la evolución del fitness funcional.
-                </p>
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-hiwod-cyan pl-4">¿El Fin de la Rutina Tradicional?</h2>
+                <p class="text-hiwod-muted text-lg leading-relaxed mb-6">Muchos atletas alcanzan un punto de estancamiento. O tienen mucha fuerza pero se asfixian al correr, o tienen un gran motor aeróbico pero carecen de potencia.</p>
+                <p class="text-hiwod-text text-lg leading-relaxed font-medium"><strong class="text-hiwod-cyan">HI-WOD</strong> nace para romper esa barrera. No elegimos entre levantar pesado o correr rápido. Hacemos ambas cosas. Es la evolución del fitness funcional.</p>
             </div>
-            
-            <!-- VENN DIAGRAM (CSS Implementation - NO SVG) -->
             <div class="relative h-64 w-full flex justify-center items-center">
-                <div class="venn-circle venn-left">
-                    <span class="text-white z-10 p-4">CROSSFIT<br><span class="text-sm font-light text-hiwod-cyan">Fuerza + Potencia</span></span>
-                </div>
-                <div class="venn-circle venn-right">
-                    <span class="text-white z-10 p-4">HYROX<br><span class="text-sm font-light text-purple-300">Resistencia + Motor</span></span>
-                </div>
-                <div class="venn-center-label">
-                    <h3 class="text-2xl font-black text-white italic tracking-wider">HI-WOD</h3>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHART SECTION 1: THE HYBRID ATHLETE PROFILE (RADAR) -->
-        <section>
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-white mb-4">El Atleta Híbrido</h2>
-                <p class="text-hiwod-muted max-w-2xl mx-auto">
-                    A diferencia de la especialización, HI-WOD construye un perfil completo. Comparamos las capacidades atléticas desarrolladas bajo nuestra metodología frente a enfoques tradicionales.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Text Context -->
-                <div class="flex flex-col justify-center space-y-6">
-                    <div class="bg-hiwod-card p-6 rounded-xl border border-gray-700">
-                        <div class="flex items-center mb-3">
-                            <i class="fas fa-dumbbell text-hiwod-cyan text-2xl mr-3"></i>
-                            <h3 class="text-xl font-bold text-white">Dominio de la Fuerza</h3>
-                        </div>
-                        <p class="text-gray-400">Mantenemos los estándares de fuerza del powerlifting y CrossFit, asegurando que la masa muscular no se sacrifique por la resistencia.</p>
-                    </div>
-                    <div class="bg-hiwod-card p-6 rounded-xl border border-gray-700">
-                        <div class="flex items-center mb-3">
-                            <i class="fas fa-heart-pulse text-purple-500 text-2xl mr-3"></i>
-                            <h3 class="text-xl font-bold text-white">Motor Aeróbico</h3>
-                        </div>
-                        <p class="text-gray-400">Incorporamos el volumen de carrera y remo de HYROX para crear una capacidad cardiovascular superior.</p>
-                    </div>
-                </div>
-
-                <!-- Chart Container -->
-                <div class="glass-panel p-4 rounded-xl">
-                    <div class="chart-container">
-                        <canvas id="athleteRadarChart"></canvas>
-                    </div>
-                    <p class="text-center text-xs text-gray-500 mt-2">Comparativa de atributos físicos por disciplina</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHART SECTION 2: INTENSITY & CALORIES (BAR) -->
-        <section class="bg-hiwod-card rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-hiwod-cyan rounded-full opacity-10 blur-3xl"></div>
-            
-            <h2 class="text-3xl font-bold text-white mb-8 text-center">Impacto Metabólico Comparativo</h2>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2">
-                    <div class="chart-container">
-                        <canvas id="caloriesBarChart"></canvas>
-                    </div>
-                </div>
-                <div class="flex flex-col justify-center space-y-6">
-                    <p class="text-gray-300 text-lg">
-                        Una sesión de Hi-WOD está diseñada para maximizar el <span class="text-hiwod-cyan font-bold">EPOC (Consumo de Oxígeno Post-Ejercicio)</span>.
-                    </p>
-                    <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-start">
-                            <span class="text-hiwod-cyan mr-2">►</span>
-                            <span>Combinación de alta intensidad con periodos de umbral aeróbico.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-hiwod-cyan mr-2">►</span>
-                            <span>Mayor gasto calórico por hora que el gimnasio tradicional o el running estable.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-hiwod-cyan mr-2">►</span>
-                            <span>Estímulo constante al metabolismo.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- STRUCTURE SECTION: SESSION BREAKDOWN (DOUGHNUT) & TIMELINE -->
-        <section>
-            <h2 class="text-4xl font-bold text-white mb-12 text-center">Anatomía de una Clase</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <!-- Composition Chart -->
-                <div>
-                    <h3 class="text-xl font-bold text-hiwod-cyan mb-4 text-center">Distribución del Tiempo</h3>
-                    <div class="chart-container" style="height: 300px;">
-                        <canvas id="sessionDoughnutChart"></canvas>
-                    </div>
-                    <div class="mt-6 text-center">
-                        <p class="text-sm text-gray-400">
-                            Cada minuto está programado. No hay tiempo muerto. La comunidad (30%) es el pegamento que mantiene la intensidad.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- CSS Timeline (No SVG) -->
-                <div class="relative pl-8 md:pl-0">
-                    <!-- Vertical Line -->
-                    <div class="absolute left-0 md:left-8 top-2 bottom-2 w-1 bg-gradient-to-b from-hiwod-cyan to-purple-600 rounded"></div>
-
-                    <!-- Item 1 -->
-                    <div class="relative pl-8 mb-8">
-                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-dark border-2 border-hiwod-cyan rounded-full"></div>
-                        <h4 class="text-white font-bold text-lg">00:00 - Warm Up & Movilidad</h4>
-                        <p class="text-gray-400 text-sm">Preparación articular y activación del core.</p>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="relative pl-8 mb-8">
-                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-hiwod-cyan rounded-full shadow-[0_0_10px_#06b6d4]"></div>
-                        <h4 class="text-white font-bold text-lg">00:15 - Bloque de Fuerza (CrossFit)</h4>
-                        <p class="text-gray-400 text-sm">Levantamientos olímpicos, Gimnásticos o Powerlifting. Enfocado en técnica y carga.</p>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="relative pl-8 mb-8">
-                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]"></div>
-                        <h4 class="text-white font-bold text-lg">00:35 - El "WOD" Híbrido (HYROX Engine)</h4>
-                        <p class="text-gray-400 text-sm">Alta intensidad. SkiErg, Running, Wall Balls mezclados con fatiga metabólica.</p>
-                    </div>
-
-                    <!-- Item 4 -->
-                    <div class="relative pl-8">
-                        <div class="absolute left-[-5px] md:left-[27px] top-1 w-4 h-4 bg-white rounded-full"></div>
-                        <h4 class="text-white font-bold text-lg">00:55 - Cooldown & Comunidad</h4>
-                        <p class="text-gray-400 text-sm">Vuelta a la calma y choque de manos. La parte favorita.</p>
-                    </div>
-                </div>
+                <div class="venn-circle venn-left"><span class="text-white z-10 p-4">CROSSFIT<br><span class="text-sm font-light text-hiwod-cyan">Fuerza + Potencia</span></span></div>
+                <div class="venn-circle venn-right"><span class="text-white z-10 p-4">HYROX<br><span class="text-sm font-light text-purple-300">Resistencia + Motor</span></span></div>
+                <div class="venn-center-label"><h3 class="text-2xl font-black text-white italic tracking-wider">HI-WOD</h3></div>
             </div>
         </section>
 
@@ -333,7 +119,7 @@
                     </div>
                 </div>
 
-                <!-- CAMPO DE CORREO (NUEVO) -->
+                <!-- CAMPO DE CORREO -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-hiwod-cyan mb-2">
                         <i class="fas fa-envelope mr-1"></i> Correo Electrónico (Requerido para prueba)
@@ -346,334 +132,81 @@
                     <i class="fas fa-brain mr-2"></i> Generar Estímulo (Gratis) ✨
                 </button>
 
-                <!-- DISCLAIMER LEGAL/DEPORTIVO -->
                 <p class="text-xs text-gray-500 mt-5 text-center px-4 leading-relaxed">
                     <i class="fas fa-exclamation-triangle text-gray-400 mr-1"></i> <strong>Aviso Importante:</strong> Esto no es una planificación deportiva ni una programación individualizada, sino una <strong>simulación algorítmica interactiva</strong> basada en el método HI-WOD. Límite de 5 simulaciones gratuitas por usuario.
                 </p>
 
-                <!-- Estado de Carga -->
                 <div id="ai-loading" class="hidden text-center mt-10">
                     <i class="fas fa-spinner fa-spin text-hiwod-cyan text-4xl mb-4"></i>
                     <p class="text-gray-400 font-medium animate-pulse">Analizando variables y programando WOD...</p>
                 </div>
 
-                <!-- Área de Resultados / Upsell -->
-                <div id="ai-result" class="hidden mt-8 p-6 md:p-8 bg-hiwod-dark rounded-xl border border-hiwod-cyan/30 text-gray-300 shadow-inner">
-                    <!-- El contenido de Gemini o el muro de pago se inyectará aquí -->
-                </div>
+                <div id="ai-result" class="hidden mt-8 p-6 md:p-8 bg-hiwod-dark rounded-xl border border-hiwod-cyan/30 text-gray-300 shadow-inner"></div>
             </div>
         </section>
 
-        <!-- CTA SECTION (DISRUPTIVO & ESCANEABLE) -->
+        <!-- CTA SECTION -->
         <section class="py-20 text-center relative">
-            <!-- Resplandor de fondo -->
             <div class="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
                 <div class="w-full md:w-3/4 h-3/4 bg-hiwod-cyan opacity-10 blur-[100px] rounded-full"></div>
             </div>
 
             <div class="bg-[#0f172a]/80 backdrop-blur-xl border border-hiwod-cyan/30 rounded-3xl p-8 md:p-14 shadow-[0_0_50px_rgba(6,182,212,0.15)] relative overflow-hidden max-w-5xl mx-auto">
-                
-                <!-- Detalles UI Técnicos (Esquinas) -->
                 <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-hiwod-cyan opacity-50 rounded-tl-3xl"></div>
                 <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-hiwod-cyan opacity-50 rounded-br-3xl"></div>
 
                 <div class="relative z-10">
-                    <!-- Etiqueta de Autoridad -->
-                    <div class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs md:text-sm uppercase px-5 py-2 rounded-full mb-8 border border-hiwod-cyan/30">
-                        Siguiente Nivel Desbloqueado
-                    </div>
+                    <div class="inline-block bg-hiwod-cyan/10 text-hiwod-cyan font-bold tracking-widest text-xs md:text-sm uppercase px-5 py-2 rounded-full mb-8 border border-hiwod-cyan/30">Siguiente Nivel Desbloqueado</div>
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight uppercase leading-tight" style="font-family: 'Oswald', sans-serif;">No es motivación.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-hiwod-cyan to-blue-500 neon-text">Es Método y Rendimiento.</span></h2>
                     
-                    <h2 class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight uppercase leading-tight" style="font-family: 'Oswald', sans-serif;">
-                        No es motivación.<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-hiwod-cyan to-blue-500 neon-text">Es Método y Rendimiento.</span>
-                    </h2>
-                    
-                    <!-- Cápsulas Escaneables (Data Points) -->
-                    <div class="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 mb-12">
-                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
-                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                                <i class="fas fa-stopwatch text-xl"></i>
-                            </div>
-                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Prep Oficial<br><strong class="text-white text-lg">HYROX</strong></span>
-                        </div>
-                        
-                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
-                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-purple-500/50 flex items-center justify-center text-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
-                                <i class="fas fa-chart-line text-xl"></i>
-                            </div>
-                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Progreso<br><strong class="text-white text-lg">Medible</strong></span>
-                        </div>
-                        
-                        <div class="flex items-center gap-4 bg-hiwod-dark/50 px-6 py-4 rounded-2xl border border-gray-700/50 w-full md:w-auto">
-                            <div class="w-12 h-12 rounded-full bg-hiwod-dark border border-hiwod-cyan/50 flex items-center justify-center text-hiwod-cyan shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                                <i class="fas fa-users text-xl"></i>
-                            </div>
-                            <span class="text-gray-300 text-sm md:text-base font-medium text-left leading-tight">Comunidad<br><strong class="text-white text-lg">Elite</strong></span>
-                        </div>
-                    </div>
-                    
-                    <!-- Botón Magnético -->
                     <button onclick="openModal()" class="group relative inline-flex items-center justify-center px-8 md:px-14 py-5 font-black text-black bg-hiwod-cyan rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:bg-cyan-300 shadow-[0_0_30px_rgba(6,182,212,0.6)] w-full md:w-auto">
                         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-20"></span>
-                        <span class="relative flex items-center gap-3 text-lg md:text-xl uppercase tracking-wide">
-                            SOLICITAR ACCESO AHORA <i class="fas fa-bolt"></i>
-                        </span>
+                        <span class="relative flex items-center gap-3 text-lg md:text-xl uppercase tracking-wide">SOLICITAR ACCESO AHORA <i class="fas fa-bolt"></i></span>
                     </button>
-                    
-                    <!-- Micro-copy de Urgencia -->
-                    <p class="mt-8 text-xs md:text-sm text-gray-400 font-bold tracking-widest uppercase flex justify-center items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> 
-                        Atención Personalizada - Plazas Limitadas
-                    </p>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- MODAL DE INSCRIPCIÓN / SOLICITUD DE SERVICIOS -->
+    <!-- MODAL -->
     <div id="inscriptionModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity">
         <div class="glass-panel w-full max-w-lg mx-4 p-8 rounded-2xl shadow-2xl border border-hiwod-cyan/50 relative transform scale-100 transition-transform">
-            <!-- Botón Cerrar -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <i class="fas fa-times text-2xl"></i>
-            </button>
-            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fas fa-times text-2xl"></i></button>
             <h3 class="text-3xl font-black text-white mb-2 uppercase italic">Únete a HI-WOD</h3>
             <p class="text-hiwod-cyan mb-6">Completa tus datos para enviarte la propuesta a hiwod5.0@gmail.com</p>
-
-            <!-- Formulario modificado para intercepción por JavaScript -->
             <form id="inscriptionForm" class="space-y-4 text-left">
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Nombre Completo</label>
-                    <input type="text" name="nombre" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Correo Electrónico</label>
-                    <input type="email" name="email" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition">
-                </div>
-
+                <div><label class="block text-sm font-medium text-gray-300 mb-1">Nombre Completo</label><input type="text" name="nombre" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"></div>
+                <div><label class="block text-sm font-medium text-gray-300 mb-1">Correo Electrónico</label><input type="email" name="email" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Servicio</label>
-                        <select name="servicio" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none">
-                            <option value="">Selecciona...</option>
-                            <option value="Entrenamiento Personalizado">Entrenamiento Personalizado</option>
-                            <option value="Clases Grupales HI-WOD">Clases Grupales HI-WOD</option>
-                            <option value="Programación Online">Programación Online</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-1">Nivel Actual</label>
-                        <select name="nivel" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none">
-                            <option value="">Selecciona...</option>
-                            <option value="Principiante">Principiante</option>
-                            <option value="Intermedio">Intermedio</option>
-                            <option value="Avanzado / Competidor">Avanzado / Competidor</option>
-                        </select>
-                    </div>
+                    <div><label class="block text-sm font-medium text-gray-300 mb-1">Servicio</label><select name="servicio" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none"><option value="">Selecciona...</option><option value="Entrenamiento Personalizado">Entrenamiento Personalizado</option><option value="Clases Grupales HI-WOD">Clases Grupales HI-WOD</option><option value="Programación Online">Programación Online</option></select></div>
+                    <div><label class="block text-sm font-medium text-gray-300 mb-1">Nivel Actual</label><select name="nivel" required class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition appearance-none"><option value="">Selecciona...</option><option value="Principiante">Principiante</option><option value="Intermedio">Intermedio</option><option value="Avanzado / Competidor">Avanzado / Competidor</option></select></div>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Objetivos / Comentarios</label>
-                    <textarea name="comentarios" rows="3" class="w-full bg-hiwod-dark border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-hiwod-cyan focus:ring-1 focus:ring-hiwod-cyan transition"></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-8 rounded-lg text-lg transition duration-300 mt-4 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
-                    GENERAR SOLICITUD
-                </button>
+                <button type="submit" class="w-full bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-8 rounded-lg text-lg transition duration-300 mt-4 shadow-[0_0_15px_rgba(6,182,212,0.4)]">GENERAR SOLICITUD</button>
             </form>
         </div>
     </div>
 
-    <footer class="bg-black text-center py-8 border-t border-gray-800">
-        <p class="text-gray-500">© 2026 HI-WOD Training. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- CHART.JS LOGIC -->
+    <!-- JAVASCRIPT & IA LOGIC -->
     <script>
-        // --- Modal Logic ---
-        function openModal() {
-            document.getElementById('inscriptionModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
-        }
+        function openModal() { document.getElementById('inscriptionModal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        function closeModal() { document.getElementById('inscriptionModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        document.getElementById('inscriptionModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-        function closeModal() {
-            document.getElementById('inscriptionModal').classList.add('hidden');
-            document.body.style.overflow = 'auto'; 
-        }
-
-        document.getElementById('inscriptionModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // --- Mailto Logic ---
         document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
             const formData = new FormData(this);
-            const nombre = formData.get('nombre');
-            const email = formData.get('email');
-            const servicio = formData.get('servicio');
-            const nivel = formData.get('nivel');
-            const comentarios = formData.get('comentarios') || 'Ninguno';
-
             const correoDestino = 'hiwod5.0@gmail.com';
-            const asunto = encodeURIComponent(`🚀 Solicitud HI-WOD: ${servicio} - ${nombre}`);
-            const cuerpo = encodeURIComponent(
-                `Hola equipo de HI-WOD,\n\n` +
-                `Me gustaría solicitar información sobre sus servicios. Mis datos son:\n\n` +
-                `👤 Nombre: ${nombre}\n` +
-                `📧 Email: ${email}\n` +
-                `🎯 Servicio: ${servicio}\n` +
-                `📊 Nivel Actual: ${nivel}\n` +
-                `💬 Comentarios / Objetivos: ${comentarios}\n\n` +
-                `Quedo a la espera de su respuesta.\n` +
-                `Un saludo.`
-            );
-
+            const asunto = encodeURIComponent(`🚀 Solicitud HI-WOD: ${formData.get('servicio')} - ${formData.get('nombre')}`);
+            const cuerpo = encodeURIComponent(`Hola equipo,\n\nSolicitud:\nNombre: ${formData.get('nombre')}\nEmail: ${formData.get('email')}\nServicio: ${formData.get('servicio')}\nNivel: ${formData.get('nivel')}`);
             window.location.href = `mailto:${correoDestino}?subject=${asunto}&body=${cuerpo}`;
-            closeModal();
-            this.reset(); 
+            closeModal(); this.reset(); 
         });
 
-        // --- Chart.js Utilities ---
-        function wrapLabel(str) {
-            if (str.length <= 16) return str;
-            const words = str.split(' ');
-            const lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + 1 + words[i].length <= 16) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-
-        const commonTooltipOptions = {
-            backgroundColor: 'rgba(15, 23, 42, 0.9)', 
-            titleColor: '#06b6d4', 
-            bodyColor: '#fff',
-            borderColor: '#334155',
-            borderWidth: 1,
-            padding: 10,
-            callbacks: {
-                title: function(tooltipItems) {
-                    const item = tooltipItems[0];
-                    let label = item.chart.data.labels[item.dataIndex];
-                    if (Array.isArray(label)) return label.join(' ');
-                    return label;
-                }
-            }
-        };
-
-        // --- Chart.js Initialization ---
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const ctxRadar = document.getElementById('athleteRadarChart').getContext('2d');
-            new Chart(ctxRadar, {
-                type: 'radar',
-                data: {
-                    labels: ['Fuerza Explosiva', 'Resistencia Cardiovascular', 'Agilidad Mental', 'Flexibilidad', 'Potencia Máxima'].map(l => wrapLabel(l)),
-                    datasets: [
-                        {
-                            label: 'Atleta HI-WOD',
-                            data: [90, 85, 95, 70, 88],
-                            backgroundColor: 'rgba(6, 182, 212, 0.4)',
-                            borderColor: '#06b6d4',
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#06b6d4',
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'Gimnasio Tradicional',
-                            data: [75, 40, 50, 40, 65],
-                            backgroundColor: 'rgba(148, 163, 184, 0.2)',
-                            borderColor: '#94a3b8',
-                            pointBackgroundColor: '#94a3b8',
-                            borderWidth: 1,
-                            borderDash: [5, 5]
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            pointLabels: { color: '#e2e8f0', font: { size: 11, family: 'Inter' } },
-                            ticks: { display: false, backdropColor: 'transparent' }
-                        }
-                    },
-                    plugins: {
-                        legend: { labels: { color: '#fff' } },
-                        tooltip: commonTooltipOptions
-                    }
-                }
-            });
-
-            const ctxBar = document.getElementById('caloriesBarChart').getContext('2d');
-            new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: ['Gym Tradicional', 'Running (10km/h)', 'Clase HI-WOD'].map(l => wrapLabel(l)),
-                    datasets: [{
-                        label: 'Calorías quemadas (aprox/hora)',
-                        data: [300, 550, 850],
-                        backgroundColor: ['rgba(148, 163, 184, 0.5)', 'rgba(147, 51, 234, 0.5)', 'rgba(6, 182, 212, 0.9)'],
-                        borderColor: ['#94a3b8', '#9333ea', '#06b6d4'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: {
-                        x: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { display: false }, ticks: { color: '#fff', font: { weight: 'bold' } } }
-                    },
-                    plugins: { legend: { display: false }, tooltip: commonTooltipOptions }
-                }
-            });
-
-            const ctxDoughnut = document.getElementById('sessionDoughnutChart').getContext('2d');
-            new Chart(ctxDoughnut, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Warm Up', 'Bloque Fuerza', 'Bloque Híbrido', 'Comunidad/Cool'].map(l => wrapLabel(l)),
-                    datasets: [{
-                        data: [15, 30, 40, 15],
-                        backgroundColor: ['#334155', '#06b6d4', '#9333ea', '#f8fafc'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: '#fff', padding: 20 } },
-                        tooltip: commonTooltipOptions
-                    }
-                }
-            });
-        });
-
-        // --- 4. Integración Gemini API (Generador de WOD + Lead Capture) ---
+        // =================================================================
+        // ATENCIÓN: PEGA TU API KEY EXACTAMENTE DENTRO DE LAS COMILLAS ABAJO
+        // =================================================================
         const apiKey = "AIzaSyBeAFGutwrWYiXKCamwkx_bA0VmFb6-z3I"; 
+        // =================================================================
 
         async function fetchWithRetry(url, options, retries = 5) {
             const delays = [1000, 2000, 4000, 8000, 16000];
@@ -694,7 +227,6 @@
             const errorText = document.getElementById('email-error');
             const emailValue = emailInput.value.trim().toLowerCase();
             
-            // 1. Validación de Correo
             const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
             if (!emailValue || !emailRegex.test(emailValue)) {
                 errorText.classList.remove('hidden');
@@ -704,7 +236,6 @@
             errorText.classList.add('hidden');
             emailInput.classList.remove('border-red-500');
 
-            // 2. Control de Uso (Paywall)
             let usageData = JSON.parse(localStorage.getItem('hiwod_ai_usage') || '{}');
             let currentUses = usageData[emailValue] || 0;
             const MAX_USES = 5;
@@ -716,30 +247,20 @@
             resultDiv.classList.remove('hidden');
 
             if (currentUses >= MAX_USES) {
-                // Renderizar Paywall / Bloqueo
                 resultDiv.innerHTML = `
                     <div class="text-center py-6">
-                        <div class="inline-block p-4 rounded-full bg-red-500/10 mb-4 border border-red-500/30">
-                            <i class="fas fa-lock text-red-400 text-3xl"></i>
-                        </div>
+                        <div class="inline-block p-4 rounded-full bg-red-500/10 mb-4 border border-red-500/30"><i class="fas fa-lock text-red-400 text-3xl"></i></div>
                         <h4 class="text-2xl font-black text-white mb-3 uppercase italic">Límite de Prueba Alcanzado</h4>
                         <p class="text-gray-400 mb-2">El correo <span class="text-hiwod-cyan font-semibold">${emailValue}</span> ha consumido sus 5 simulaciones gratuitas.</p>
-                        <p class="text-gray-500 text-sm mb-8">Es hora de dejar de simular y empezar a entrenar de verdad.</p>
-                        
-                        <button onclick="openModal()" class="w-full md:w-auto bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-10 rounded-xl transition duration-300 shadow-[0_0_20px_rgba(6,182,212,0.5)] transform hover:scale-105">
-                            SOLICITAR ACCESO AL PROGRAMA
-                        </button>
-                    </div>
-                `;
+                        <button onclick="openModal()" class="w-full md:w-auto bg-hiwod-cyan hover:bg-cyan-400 text-black font-bold py-4 px-10 rounded-xl transition duration-300 mt-6">SOLICITAR ACCESO AL PROGRAMA</button>
+                    </div>`;
                 return;
             }
 
-            // 3. Flujo normal (API de IA)
             const material = document.getElementById('ai-material').value;
             const time = document.getElementById('ai-time').value;
             const focus = document.getElementById('ai-focus').value;
 
-            // Actualizar UI para carga
             btn.disabled = true;
             btn.classList.add('opacity-50', 'cursor-not-allowed');
             loadingDiv.classList.remove('hidden');
@@ -747,59 +268,53 @@
             resultDiv.innerHTML = '';
 
             const prompt = `Actúa como un coach experto de élite en entrenamiento híbrido (metodología HI-WOD: CrossFit + Hyrox). 
-            Genera un WOD (Workout of the Day) único, estructurado y de alta intensidad basado en estos parámetros exactos:
-            - Material disponible: ${material}
-            - Tiempo límite: ${time}
-            - Enfoque principal: ${focus}
+            Genera un WOD único y estructurado basado en:
+            - Material: ${material}
+            - Tiempo: ${time}
+            - Enfoque: ${focus}
             
-            Estructura la respuesta obligatoriamente con las siguientes secciones:
-            1. Un título creativo y agresivo para el WOD.
-            2. Breve Calentamiento (Warm Up) enfocado en la movilidad necesaria.
-            3. La parte principal del entrenamiento (bloques de fuerza/motor según corresponda).
-            4. Un consejo técnico y el RPE (Rate of Perceived Exertion) recomendado del 1 al 10.
+            Estructura:
+            1. Título agresivo.
+            2. Warm Up.
+            3. Parte principal.
+            4. Consejo técnico y RPE (1-10).
             
-            Usa un tono directo, técnico, sin humo motivacional y muy profesional. 
-            IMPORTANTE: Devuelve el resultado formateado en HTML limpio usando etiquetas como <h3 class="text-xl font-bold text-white mb-2">, <h4 class="text-lg font-semibold text-hiwod-cyan mt-4 mb-2">, <ul class="list-disc pl-5 space-y-1 mb-4">, <li>, <p class="mb-2">, <strong>. 
-            NO utilices bloques de código markdown (\`\`\`).`;
+            IMPORTANTE: Devuelve el resultado en HTML limpio (h3, h4, ul, li, p, strong). NO uses markdown (\`\`\`).`;
 
             try {
-                const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                // MODELO ACTUALIZADO Y BLINDADO (gemini-1.5-flash)
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                
+                const response = await fetchWithRetry(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                 });
 
                 const text = response.candidates?.[0]?.content?.parts?.[0]?.text;
                 
                 if(text) {
                     const cleanText = text.replace(/```html/g, '').replace(/```/g, '');
-                    
-                    // Actualizar el uso en local storage
                     usageData[emailValue] = currentUses + 1;
                     localStorage.setItem('hiwod_ai_usage', JSON.stringify(usageData));
                     let remaining = MAX_USES - usageData[emailValue];
 
-                    // Renderizar WOD con contador de créditos
                     resultDiv.innerHTML = `
                         <div class="mb-6 flex justify-between items-center bg-hiwod-dark/50 p-3 rounded-lg border border-gray-700/50">
                             <span class="text-xs text-gray-400">Atleta: ${emailValue}</span>
-                            <span class="text-xs font-bold ${remaining > 1 ? 'text-hiwod-cyan' : 'text-red-400'}">
-                                ${remaining} simulaciones restantes
-                            </span>
+                            <span class="text-xs font-bold ${remaining > 1 ? 'text-hiwod-cyan' : 'text-red-400'}">${remaining} simulaciones restantes</span>
                         </div>
-                        ${cleanText}
-                    `;
+                        ${cleanText}`;
                 } else {
-                    resultDiv.innerHTML = "<p class='text-red-400'>No se pudo generar el entrenamiento. Inténtalo de nuevo.</p>";
+                    throw new Error("Respuesta vacía de Gemini");
                 }
             } catch (error) {
+                console.error(error);
                 resultDiv.innerHTML = `
                     <div class="text-center">
                         <i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-2"></i>
-                        <p class="text-red-400 font-bold">Error de conexión con el motor IA.</p>
-                        <p class="text-sm text-gray-500 mt-2">Por favor, verifica tu conexión a internet.</p>
+                        <p class="text-red-400 font-bold">Error de conexión con IA.</p>
+                        <p class="text-sm text-gray-500 mt-2">Revisa que tu API Key sea correcta en el código.</p>
                     </div>`;
             } finally {
                 loadingDiv.classList.add('hidden');
